@@ -7,11 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Document
 public class Teacher {
     @Id
-    private int id;
+    private String id;
 
     @Indexed(unique = true)
     private String nit;
@@ -22,7 +23,7 @@ public class Teacher {
     @Field("schedules")
     private List<Schedule> schedules = new ArrayList<>();
 
-    public Teacher(int id, String nit, String name, String lastName, String area) {
+    public Teacher(String id, String nit, String name, String lastName, String area) {
         this.id = id;
         this.nit = nit;
         this.name = name;
@@ -30,11 +31,11 @@ public class Teacher {
         this.area = area;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

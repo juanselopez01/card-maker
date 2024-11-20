@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*"    )
 public class TeacherController {
     private final TeacherRepository teacherRepository;
 
@@ -31,15 +31,16 @@ public class TeacherController {
     }
 
     @GetMapping(value="/teachers/{id}")
-    public Teacher getTeacherById(@PathVariable int id) {
+    public Teacher getTeacherById(@PathVariable String id) {
         Optional<Teacher> teacher = teacherRepository.findById(id);
         return teacher.orElse(null);
     }
 
     @GetMapping(value="/teachers/{id}/schedules")
-    public ResponseEntity<List<Schedule>> getTeacherSchedule(@PathVariable int id) {
-        Optional<Teacher> teacherOptional = teacherRepository.findById(id);
+    public ResponseEntity<List<Schedule>> getTeacherSchedule(@PathVariable String id) {
 
+        Optional<Teacher> teacherOptional = teacherRepository.findById(id);
+        System.out.println(teacherOptional.isPresent());
         if(teacherOptional.isPresent()){
             Teacher teacher = teacherOptional.get();
             return ResponseEntity.ok().body(teacher.getSchedules());
@@ -55,7 +56,7 @@ public class TeacherController {
 
     @PutMapping(value="/teachers/{id}/addSchedule")
     public ResponseEntity<String> addSchedule(@PathVariable String id, @RequestBody AddScheduleRequest scheduleRequest) {
-        Optional<Teacher> optionalTeacher = teacherRepository.findById(Integer.parseInt(id));
+        Optional<Teacher> optionalTeacher = teacherRepository.findById(id);
 
         if(optionalTeacher.isPresent()) {
             Teacher teacher = optionalTeacher.get();
