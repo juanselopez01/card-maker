@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  cardmaker:
+    image: cardmaker
+    build:
+      context: .
+      dockerfile: ./Dockerfile
